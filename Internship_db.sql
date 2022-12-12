@@ -221,7 +221,25 @@ SELECT COUNT(*) AS KickedFromMarketing FROM InternBranches ib
 JOIN Branches b ON b.Id = ib.BranchId
 WHERE b.Name = 'Marketing' AND ib.Status = 'Kicked';
 
+UPDATE Individuals
+SET ResidencyCity = 'Moskva'
+FROM MemberBranches
+WHERE MemberBranches.MemberId = Individuals.Id 
+AND Individuals.Surname LIKE '%in';
+
+DELETE FROM Individuals
+WHERE DATE_PART('year', NOW() - DateOfBirth) > 25;
+
+UPDATE InternBranches
+SET Status = 'Kicked'
+FROM Homeworks
+WHERE Homeworks.InternId = InternBranches.InternId 
+GROUP BY InternBranches.InternId
+HAVING AVG(Homeworks.Grade) < 2.4
+
 --END OF PART 4
+
+
 
 	
 
