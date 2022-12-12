@@ -195,6 +195,35 @@ VALUES
 	(33, 1, 5, 'Internship-2-C-Sharp', 3),
 	(41, 9, 5, 'Internship-1-Git', 1);
 	
+--END OF PART 3
+
+--PART 4: Queries
+
+SELECT DISTINCT i.Name, i.Surname FROM MemberBranches m
+JOIN Individuals i ON i.Id = m.MemberId
+WHERE i.ResidencyCity != 'Split';
+
+SELECT StartDate, EndDate FROM Internships
+ORDER BY StartDate;
+
+SELECT DISTINCT ind.Name, ind.Surname FROM InternBranches ib
+JOIN BranchInternships bi ON bi.Id = ib.BranchId
+JOIN Internships i ON bi.InternshipId = i.Id
+JOIN Individuals ind ON ind.Id = ib.InternId
+WHERE DATE_PART('year', i.StartDate) = 2021;
+
+SELECT COUNT(*) AS NumberOfInterns FROM Individuals i
+JOIN InternBranches ib ON ib.InternId = i.Id
+JOIN Branches b ON b.Id = ib.BranchId
+WHERE b.Name = 'Development' AND i.Gender = 'Ž';
+
+SELECT COUNT(*) AS KickedFromMarketing FROM InternBranches ib
+JOIN Branches b ON b.Id = ib.BranchId
+WHERE b.Name = 'Marketing' AND ib.Status = 'Kicked';
+
+--END OF PART 4
+
+	
 
 	
 	
