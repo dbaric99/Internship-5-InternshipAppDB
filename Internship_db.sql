@@ -232,14 +232,14 @@ WHERE DATE_PART('year', NOW() - DateOfBirth) > 25;
 
 UPDATE InternBranches
 SET Status = 'Kicked'
-FROM Homeworks
-WHERE Homeworks.InternId = InternBranches.InternId 
-GROUP BY InternBranches.InternId
-HAVING AVG(Homeworks.Grade) < 2.4
+WHERE (InternId IN(
+	SELECT InternId FROM Homeworks h
+	WHERE h.InternId = InternId
+	GROUP BY InternId
+	HAVING AVG(h.Grade) < 2.4
+))
 
 --END OF PART 4
-
-
 
 	
 
